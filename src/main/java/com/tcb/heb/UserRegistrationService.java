@@ -1,4 +1,4 @@
-package com.tcb.homedepot;
+package com.tcb.heb;
 
 public class UserRegistrationService {
 }

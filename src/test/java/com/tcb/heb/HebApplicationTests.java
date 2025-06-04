@@ -1,10 +1,10 @@
-package com.tcb.homedepot;
+package com.tcb.heb;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class HomeDepotApplicationTests {
+class HebApplicationTests {
 
     @Test
     void contextLoads() {

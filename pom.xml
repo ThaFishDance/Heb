@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.tcb</groupId>
-    <artifactId>HomeDepot</artifactId>
+    <artifactId>Heb</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>HomeDepot</name>
-    <description>HomeDepot</description>
+    <name>Heb</name>
+    <description>Heb</description>
     <url/>
     <licenses>
         <license/>

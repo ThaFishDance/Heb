@@ -1,4 +1,4 @@
-package com.tcb.homedepot;
+package com.tcb.heb;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

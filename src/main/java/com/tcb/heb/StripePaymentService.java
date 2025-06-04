@@ -1,8 +1,6 @@
-package com.tcb.homedepot;
+package com.tcb.heb;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Service;
 
 //@Service("stripe")
 //@Primary

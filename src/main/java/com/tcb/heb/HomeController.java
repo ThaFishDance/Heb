@@ -1,4 +1,4 @@
-package com.tcb.homedepot;
+package com.tcb.heb;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

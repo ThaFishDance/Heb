@@ -1,6 +1,4 @@
-package com.tcb.homedepot;
-
-import org.springframework.stereotype.Service;
+package com.tcb.heb;
 
 //@Service("paypal")
 public class PayPalPaymentService implements PaymentService {
