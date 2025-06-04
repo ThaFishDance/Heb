@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class HomeDepotApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(HomeDepotApplication.class, args);
+        var context = SpringApplication.run(HomeDepotApplication.class, args);
+        var manager = context.getBean(NotificationManager.class);
+        manager.sendNotification("Hello World");
     }
 
 }
