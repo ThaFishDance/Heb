@@ -8,8 +8,8 @@ public class HebApplication {
 
     public static void main(String[] args) {
         var context = SpringApplication.run(HebApplication.class, args);
-        var manager = context.getBean(NotificationManager.class);
-        manager.sendNotification("Hello World");
+//        var orderService = context.getBean(OrderService.class);
+//        orderService.placeOrder();
     }
 
 }
