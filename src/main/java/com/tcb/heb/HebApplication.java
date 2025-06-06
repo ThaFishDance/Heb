@@ -8,8 +8,10 @@ public class HebApplication {
 
     public static void main(String[] args) {
         var context = SpringApplication.run(HebApplication.class, args);
-//        var orderService = context.getBean(OrderService.class);
-//        orderService.placeOrder();
+        var userService = context.getBean(UserService.class);
+        userService.registerUser(new User(1L, "mosh@codewithmosh.com", "12345", "Mosh"));
+        userService.registerUser(new User(1L, "mosh@codewithmosh.com", "12345", "Mosh"));
+
     }
 
 }

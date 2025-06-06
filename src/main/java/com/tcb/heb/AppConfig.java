@@ -11,6 +11,8 @@ public class AppConfig {
     @Value("${payment-gateway: stripe}")
     private String paymentGateway;
 
+    // Payment Service
+
     @Bean
     public PaymentService stripe() {
         System.out.println("Creating stripe bean");
@@ -28,6 +30,26 @@ public class AppConfig {
         return new OrderService(paymentGateway.equals("stripe") ? stripe() : paypal());
     }
 
+
+    // User Registration Service
+
+    @Bean
+    public InMemoryUserRepository inMemoryUserRepository() {
+        return new InMemoryUserRepository();
+    }
+
+    @Bean
+    public EmailNotificationService emailNotificationService() {
+        return new EmailNotificationService();
+    }
+
+    @Bean
+    public UserService userRegistrationService() {
+        return new UserService(inMemoryUserRepository(), emailNotificationService());
+    }
+
+
+    // Example of lazy loading of a bean
     @Bean
     @Lazy
     public HeavyResource heavyResource() {
