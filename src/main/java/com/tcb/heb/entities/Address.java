@@ -12,7 +12,7 @@ import lombok.*;
 @Table(name = "addresses")
 public class Address {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, name = "street")
