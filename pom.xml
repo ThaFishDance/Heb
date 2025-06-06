@@ -69,6 +69,11 @@
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-mysql</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>annotationProcessor</scope>
+        </dependency>
 
     </dependencies>
     <build>
@@ -81,6 +86,11 @@
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>10.15.0</version>
+                <configuration>
+                    <url></url>
+                    <user></user>
+                    <password></password>
+                </configuration>
             </plugin>
         </plugins>
     </build>
