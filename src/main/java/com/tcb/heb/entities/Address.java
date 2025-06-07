@@ -9,6 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
 @Table(name = "addresses")
 public class Address {
     @Id
@@ -23,4 +24,9 @@ public class Address {
     private String state;
     @Column(nullable = false, name = "zip")
     private String zip;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @ToString.Exclude
+    private User user;
 }
