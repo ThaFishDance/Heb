@@ -32,7 +32,8 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "user")
-    @Builder.Default // Have to have this if you want to use the builder design pattern
+    @Builder.Default
+    @ToString.Exclude // Have to have this if you want to use the builder design pattern
     private List<Address> addresses = new ArrayList<>();
 
     public void addAddress(Address address) {
@@ -54,6 +55,7 @@ public class User {
         inverseJoinColumns = @JoinColumn(name="tag_id")
     )
     @Builder.Default
+    @ToString.Exclude
     private Set<Tag> tags = new HashSet<>();
 
     public void addTag(String tagName) {
@@ -63,4 +65,7 @@ public class User {
     }
 
     // TODO: add remove tag
+
+    @OneToOne(mappedBy = "user")
+    private Profile profile;
 }

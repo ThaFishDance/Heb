@@ -1,5 +1,7 @@
 package com.tcb.heb;
 
+import com.tcb.heb.entities.Address;
+import com.tcb.heb.entities.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -7,10 +9,25 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class HebApplication {
 
     public static void main(String[] args) {
-        var context = SpringApplication.run(HebApplication.class, args);
-        var userService = context.getBean(UserService.class);
-        userService.registerUser(new User(1L, "mosh@codewithmosh.com", "12345", "Mosh"));
-        userService.registerUser(new User(1L, "mosh@codewithmosh.com", "12345", "Mosh"));
+//        var context = SpringApplication.run(HebApplication.class, args);
+        var user = User
+            .builder()
+            .name("John")
+            .password("password")
+            .email("test@test.com")
+            .build();
+
+        var address = Address
+            .builder()
+            .street("Street")
+            .city("City")
+            .state("State")
+            .zip("Zip")
+            .build();
+
+        user.addAddress(address);
+        System.out.println(user);
+
 
     }
 

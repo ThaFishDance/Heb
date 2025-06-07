@@ -29,4 +29,10 @@ public class Profile {
     @Column(name = "loyalty_points", nullable = false)
     private int loyaltyPoints;
 
+    @OneToOne
+    @JoinColumn(name = "id")
+    @MapsId // Tells hibernate to use the same column as PK&FK
+    @ToString.Exclude
+    private User user;
+
 }
