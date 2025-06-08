@@ -19,10 +19,10 @@ public class Product {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "price", precision = 10, scale = 2)
+    @Column(name = "price")
     private BigDecimal price;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 
