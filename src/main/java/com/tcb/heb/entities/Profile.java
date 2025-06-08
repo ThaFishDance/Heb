@@ -17,16 +17,16 @@ public class Profile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "bio", nullable = false)
+    @Column(name = "bio")
     private String bio;
 
-    @Column(name = "phone_number", nullable = false)
+    @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "date_of_birth", nullable = false)
+    @Column(name = "date_of_birth")
     private Date dateOfBirth;
 
-    @Column(name = "loyalty_points", nullable = false)
+    @Column(name = "loyalty_points")
     private int loyaltyPoints;
 
     @OneToOne
