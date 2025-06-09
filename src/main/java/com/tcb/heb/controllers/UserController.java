@@ -1,5 +1,6 @@
 package com.tcb.heb.controllers;
 
+import com.tcb.heb.dto.RegisterUserRequest;
 import com.tcb.heb.dto.UserDto;
 import com.tcb.heb.mappers.UserMapper;
 import com.tcb.heb.repositories.UserRepository;
@@ -36,8 +37,13 @@ public class UserController {
     }
 
     @PostMapping
-    public UserDto createUser(@RequestBody UserDto data) {
-        return data;
+    public UserDto createUser(@RequestBody RegisterUserRequest request) {
+        System.out.println(request);
+        var user = userMapper.toEntity(request);
+        userRepository.save(user);
+
+        var userDto = userMapper.toDto(user);
+        return userDto;
     }
 
 }
