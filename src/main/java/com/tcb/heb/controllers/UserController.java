@@ -1,6 +1,6 @@
 package com.tcb.heb.controllers;
 
-import com.tcb.heb.dto.RegisterUserRequest;
+import com.tcb.heb.dto.CreateUserRequest;
 import com.tcb.heb.dto.UpdateUserRequest;
 import com.tcb.heb.dto.UserDto;
 import com.tcb.heb.mappers.UserMapper;
@@ -40,7 +40,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserDto> createUser(
-        @RequestBody RegisterUserRequest request,
+        @RequestBody CreateUserRequest request,
         UriComponentsBuilder uriBuilder) {
         var user = userMapper.toEntity(request);
         userRepository.save(user);
@@ -69,6 +69,16 @@ public class UserController {
         userRepository.save(user);
 
         return ResponseEntity.ok(userMapper.toDto(user));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        var user = userRepository.findById(id).orElse(null);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+        userRepository.delete(user);
+        return ResponseEntity.noContent().build();
     }
 
 }

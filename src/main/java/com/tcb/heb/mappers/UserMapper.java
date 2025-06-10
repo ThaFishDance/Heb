@@ -1,6 +1,6 @@
 package com.tcb.heb.mappers;
 
-import com.tcb.heb.dto.RegisterUserRequest;
+import com.tcb.heb.dto.CreateUserRequest;
 import com.tcb.heb.dto.UpdateUserRequest;
 import com.tcb.heb.dto.UserDto;
 import com.tcb.heb.entities.User;
@@ -12,7 +12,7 @@ public interface UserMapper {
     // during compile time, MapStruct will implement this interface for us
     // You can check this in the target folder, under generated sources
     UserDto toDto(User user);
-    User toEntity(RegisterUserRequest request);
+    User toEntity(CreateUserRequest request);
 
     // This is what manually setting is, but we are using MapStruct mapper instead
     // user.setName(request.getName());
@@ -20,6 +20,4 @@ public interface UserMapper {
     // userRepository.save(user);
     // Must include mappingtarget to prevent compile error
     void updateUser(UpdateUserRequest request, @MappingTarget User user);
-
-    void deleteUser(@MappingTarget User user);
 }

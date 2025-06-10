@@ -3,7 +3,7 @@ package com.tcb.heb.dto;
 import lombok.Data;
 
 @Data
-public class RegisterUserRequest {
+public class CreateUserRequest {
     private String name;
     private String email;
     private String password;
