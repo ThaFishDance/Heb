@@ -35,7 +35,7 @@ public class ProductController {
     public ResponseEntity<ProductDto> getProduct(@PathVariable Long id) {
         var product = productRepository.findById(id).orElse(null);
         if (product == null) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.notFound().build(); // 404
         }
         return ResponseEntity.ok(productMapper.toDto(product));
     }

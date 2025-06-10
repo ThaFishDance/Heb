@@ -1,6 +1,7 @@
 package com.tcb.heb.controllers;
 
 import com.tcb.heb.dto.RegisterUserRequest;
+import com.tcb.heb.dto.UpdateUserRequest;
 import com.tcb.heb.dto.UserDto;
 import com.tcb.heb.mappers.UserMapper;
 import com.tcb.heb.repositories.UserRepository;
@@ -30,7 +31,7 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
         var user = userRepository.findById(id).orElse(null);
-        if(user == null) {
+        if (user == null) {
             return ResponseEntity.notFound().build();
         }
 
@@ -39,8 +40,8 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserDto> createUser(
-            @RequestBody RegisterUserRequest request,
-            UriComponentsBuilder uriBuilder) {
+        @RequestBody RegisterUserRequest request,
+        UriComponentsBuilder uriBuilder) {
         var user = userMapper.toEntity(request);
         userRepository.save(user);
 
@@ -50,6 +51,24 @@ public class UserController {
 
         // return 201
         return ResponseEntity.created(uri).body(userDto);
+    }
+
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDto> updateUser(
+        @PathVariable(name = "id") Long id,
+        @RequestBody UpdateUserRequest request
+    ) {
+        // check to see if user exists
+        var user = userRepository.findById(id).orElse(null);
+        if (user == null) {
+            return ResponseEntity.notFound().build(); // 404
+        }
+
+        userMapper.updateUser(request, user);
+        userRepository.save(user);
+
+        return ResponseEntity.ok(userMapper.toDto(user));
     }
 
 }
