@@ -16,7 +16,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @AllArgsConstructor // Lombok for userRepository
@@ -105,18 +104,6 @@ public class UserController {
         userRepository.save(user);
         return ResponseEntity.noContent().build();
 
-    }
-
-
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<HashMap<String, String>> handleValidationErrors(MethodArgumentNotValidException exception) {
-        var errors = new HashMap<String, String>();
-
-        exception.getBindingResult().getAllErrors().forEach(error -> {
-            errors.put(error.getDefaultMessage(), error.getDefaultMessage());
-        });
-
-        return ResponseEntity.badRequest().body(errors);
     }
 
 }
