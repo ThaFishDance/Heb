@@ -7,6 +7,7 @@ import com.tcb.heb.dto.UserDto;
 import com.tcb.heb.mappers.UserMapper;
 import com.tcb.heb.repositories.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -93,7 +94,7 @@ public class UserController {
         }
 
         if (!user.getPassword().equals(request.getOldPassword())) {
-            return ResponseEntity.badRequest().build();
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
         user.setPassword(request.getNewPassword());
