@@ -46,26 +46,6 @@ public class User {
         address.setUser(null);
     }
 
-    @ManyToMany
-    @JoinTable(
-        name="user_tags",
-        // Set the FK referencing the users table
-        joinColumns = @JoinColumn(name="user_id"),
-        // Set the other FK
-        inverseJoinColumns = @JoinColumn(name="tag_id")
-    )
-    @Builder.Default
-    @ToString.Exclude
-    private Set<Tag> tags = new HashSet<>();
-
-    public void addTag(String tagName) {
-        Tag tag = new Tag(tagName);
-        tags.add(tag);
-        tag.getUsers().add(this);
-    }
-
-    // TODO: add remove tag
-
     @OneToOne(mappedBy = "user")
     private Profile profile;
 }
