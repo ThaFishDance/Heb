@@ -17,7 +17,6 @@ public interface UserMapper {
     // This is what manually setting is, but we are using MapStruct mapper instead
     // user.setName(request.getName());
     // user.setEmail(request.getEmail());
-    // userRepository.save(user);
     // Must include mappingtarget to prevent compile error
     void updateUser(UpdateUserRequest request, @MappingTarget User user);
 }
