@@ -44,10 +44,11 @@ public class UserController {
         var user = userMapper.toEntity(request);
         userRepository.save(user);
 
+        // after save, we include header for single user
         var userDto = userMapper.toDto(user);
         var uri = uriBuilder.path("/users/{id}").buildAndExpand(userDto.getId()).toUri();
 
-        // Created is 201
+        // return 201
         return ResponseEntity.created(uri).body(userDto);
     }
 
