@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -22,7 +23,18 @@ public class Cart {
     @Column(name = "date_created", insertable = false, updatable = false)
     private LocalDate dateCreated;
 
-    @OneToMany(mappedBy = "cart")
-    private Set<CartItem> cartItems = new LinkedHashSet<>();
+    // Since the cart already exists,
+    // and then we are updating the cart with cart items
+    // We use CascadeType.MERGE
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.MERGE)
+    private Set<CartItem> items = new LinkedHashSet<>();
+
+    public BigDecimal getTotalPrice(){
+        BigDecimal totalPrice = BigDecimal.ZERO;
+        for (CartItem item : items) {
+            totalPrice = totalPrice.add(item.getTotalPrice());
+        }
+        return totalPrice;
+    }
 
 }

@@ -1,7 +1,10 @@
 package com.tcb.heb.repositories;
 
 import com.tcb.heb.entities.Cart;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CartRepository extends CrudRepository<Cart, Long> {
+import java.util.UUID;
+
+public interface CartRepository extends JpaRepository<Cart, UUID> {
+
 }
