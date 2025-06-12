@@ -9,20 +9,21 @@ import com.tcb.heb.exceptions.ProductNotFoundException;
 import com.tcb.heb.mappers.CartMapper;
 import com.tcb.heb.repositories.CartRepository;
 import com.tcb.heb.repositories.ProductRepository;
-import org.springframework.http.ResponseEntity;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
 @Service
+@AllArgsConstructor
 public class CartService {
 
-    CartRepository cartRepository;
-    CartMapper cartMapper;
-    ProductRepository productRepository;
+    private CartRepository cartRepository;
+    private CartMapper cartMapper;
+    private ProductRepository productRepository;
 
     public CartDto createCart(){
-        var cart = new Cart();
+        Cart cart = new Cart();
         cartRepository.save(cart);
         return cartMapper.toDto(cart);
     }
