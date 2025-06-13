@@ -30,7 +30,7 @@ public class CartService {
 
     public CartItemDto addItem(UUID cartId, Long productId) {
         // Check if cart exists
-        var cart = cartRepository.findById(cartId).orElse(null);
+        var cart = cartRepository.getCartWithItems(cartId).orElse(null);
         if (cart == null) {
             throw new CartNotFoundException();
         }
