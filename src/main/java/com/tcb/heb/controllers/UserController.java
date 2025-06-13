@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -22,6 +23,7 @@ public class UserController {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping
     public List<UserDto> getAllUsers() {
@@ -45,7 +47,11 @@ public class UserController {
     public ResponseEntity<UserDto> createUser(
         @Valid @RequestBody CreateUserRequest request,
         UriComponentsBuilder uriBuilder) {
+        // Turn req into ent
         var user = userMapper.toEntity(request);
+        // Hash password
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        // Save user to db
         userRepository.save(user);
 
         // after save, we include header for single user
