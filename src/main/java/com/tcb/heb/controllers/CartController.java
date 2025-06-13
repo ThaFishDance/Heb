@@ -3,14 +3,12 @@ package com.tcb.heb.controllers;
 import com.tcb.heb.dto.AddItemToCartRequest;
 import com.tcb.heb.dto.CartDto;
 import com.tcb.heb.dto.CartItemDto;
-import com.tcb.heb.entities.Cart;
-import com.tcb.heb.entities.CartItem;
 import com.tcb.heb.exceptions.CartNotFoundException;
 import com.tcb.heb.exceptions.ProductNotFoundException;
 import com.tcb.heb.mappers.CartMapper;
 import com.tcb.heb.repositories.CartRepository;
-import com.tcb.heb.repositories.ProductRepository;
 import com.tcb.heb.services.CartService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,6 +22,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/carts")
+@Tag(name="carts")
 public class CartController {
 
     private final CartRepository cartRepository;
@@ -60,6 +59,16 @@ public class CartController {
         }
 
         return ResponseEntity.ok(cartMapper.toDto(cart));
+    }
+
+    @PutMapping("/carts/{cartId}/items/{productId}")
+    public ResponseEntity<CartDto> updateCart(
+        @PathVariable  UUID cartId,
+        @PathVariable Long productId
+
+    ){
+        System.out.println("Updating cart");
+        return null;
     }
 
     @ExceptionHandler(CartNotFoundException.class)

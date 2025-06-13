@@ -1,6 +1,5 @@
 package com.tcb.heb.dto;
 
-import com.tcb.heb.entities.CartItem;
 import lombok.Data;
 
 import java.math.BigDecimal;
