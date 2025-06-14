@@ -1,3 +1,6 @@
+logging:
+  pattern:
+    console: "%msg%n"
 spring:
   application:
     name: Heb
