@@ -24,9 +24,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         // Stateless sessions
         http
-            .sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .sessionManagement(c ->
+                c.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             // disable csrf - Performance opt
-             .csrf(AbstractHttpConfigurer::disable)
+            .csrf(AbstractHttpConfigurer::disable)
             // Authorize HTTP requests
             // Decide which endpoints are public or private
             .authorizeHttpRequests(c ->

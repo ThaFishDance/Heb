@@ -10,7 +10,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,11 +29,11 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(
-        @Valid @RequestBody UserLoginRequest userLoginRequest
+        @Valid @RequestBody UserLoginRequest request
     ) {
 
         // Check for email in DB
-        User user = userRepository.findUserByEmail(userLoginRequest.getEmail());
+        User user = userRepository.findUserByEmail(request.getEmail()).orElse(null);
         if (user == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                 Map.of("error", "User not found")
@@ -42,17 +41,10 @@ public class AuthController {
         }
 
         // Check if passwords match
-        var reqPassword = passwordEncoder.encode(userLoginRequest.getPassword());
-
-        System.out.println(reqPassword);
-        System.out.println(user.getPassword());
-
-        if (!reqPassword.equals(user.getPassword())) {
-            System.out.println("Password does not match");
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
-                Map.of("error", "Password does not match")
-            );
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+
 
         // Return Success
         return ResponseEntity.ok().build();
