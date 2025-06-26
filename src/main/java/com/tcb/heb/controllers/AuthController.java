@@ -1,6 +1,8 @@
 package com.tcb.heb.controllers;
 
+import com.tcb.heb.dto.JwtResponse;
 import com.tcb.heb.dto.UserLoginRequest;
+import com.tcb.heb.services.JwtService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -18,9 +20,10 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class AuthController {
     private final AuthenticationManager authenticationManager;
+    private final JwtService jwtService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(
+    public ResponseEntity<JwtResponse> login(
         @Valid @RequestBody UserLoginRequest request
     ) {
 
@@ -31,8 +34,10 @@ public class AuthController {
             )
         );
 
+        String token = jwtService.generateToken(request.getEmail());
+
         // Return Success
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(new JwtResponse(token));
     }
 
     @ExceptionHandler({BadCredentialsException.class})
