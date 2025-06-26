@@ -2,12 +2,16 @@ package com.tcb.heb.services;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
 @Service
 public class JwtService {
+
+    @Value("${spring.jwt.secret}")
+    private String secret;
 
     final long tokenExpirationInMs = 86_400_000; // 1day
 
@@ -16,7 +20,7 @@ public class JwtService {
             .subject(email)
             .issuedAt(new Date())
             .expiration(new Date(System.currentTimeMillis() + tokenExpirationInMs))
-            .signWith(Keys.hmacShaKeyFor("secret".getBytes()))
+            .signWith(Keys.hmacShaKeyFor(secret.getBytes()))
             .compact();
     }
 }

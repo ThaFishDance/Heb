@@ -10,6 +10,8 @@ spring:
     password: ${MYSQL_ROOT_PASSWORD}
   jpa:
     show-sql: true
+  jwt:
+    secret: ${JWT_SECRET}
 stripe:
     apiUrl: https://api.stripe.com
     enabled: true
