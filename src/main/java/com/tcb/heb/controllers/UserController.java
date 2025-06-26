@@ -4,6 +4,7 @@ import com.tcb.heb.dto.ChangePasswordRequest;
 import com.tcb.heb.dto.CreateUserRequest;
 import com.tcb.heb.dto.UpdateUserRequest;
 import com.tcb.heb.dto.UserDto;
+import com.tcb.heb.entities.Role;
 import com.tcb.heb.mappers.UserMapper;
 import com.tcb.heb.repositories.UserRepository;
 import jakarta.validation.Valid;
@@ -51,6 +52,8 @@ public class UserController {
         var user = userMapper.toEntity(request);
         // Hash password
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        // Set Role
+        user.setRole(Role.USER);
         // Save user to db
         userRepository.save(user);
 
