@@ -3,7 +3,7 @@ package com.tcb.heb.mappers;
 import com.tcb.heb.dto.CreateUserRequest;
 import com.tcb.heb.dto.UpdateUserRequest;
 import com.tcb.heb.dto.UserDto;
-import com.tcb.heb.dto.UserLoginRequest;
+import com.tcb.heb.dto.LoginRequest;
 import com.tcb.heb.entities.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -14,7 +14,7 @@ public interface UserMapper {
     // You can check this in the target folder, under generated sources
     UserDto toDto(User user);
     User toEntity(CreateUserRequest request);
-    User toEntity(UserLoginRequest request);
+    User toEntity(LoginRequest request);
 
     // This is what manually setting is, but we are using MapStruct mapper instead
     // user.setName(request.getName());
