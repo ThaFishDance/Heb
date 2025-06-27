@@ -12,44 +12,14 @@ import java.util.Date;
 
 @Service
 public class JwtService {
+    public String generateToken(String email) {
+        final long tokenExpiration = 86400; // 1 day
 
-    @Value("${spring.jwt.secret}")
-    private String secret;
-
-    final long tokenExpirationInMs = 86_400_000; // 1day
-
-    public boolean validateToken(String token) {
-        try{
-            var claims = getClaims(token);
-
-            return claims.getExpiration().after(new Date());
-
-        } catch(JwtException ex){
-            return false;
-        }
-    }
-
-    private Claims getClaims(String token) {
-        return Jwts.parser()
-            .verifyWith(Keys.hmacShaKeyFor(secret.getBytes()))
-            .build()
-            .parseSignedClaims(token)
-            .getPayload();
-    }
-
-    public Long getUserIdFromToken(String token) {
-        return Long.valueOf(getClaims(token).getSubject());
-    }
-
-    public String generateToken(User user) {
         return Jwts.builder()
-            .subject(user.getId().toString())
-            .claim("email", user.getEmail())
-            .claim("name", user.getName())
-            .claim("role", user.getRole())
+            .subject(email)
             .issuedAt(new Date())
-            .expiration(new Date(System.currentTimeMillis() + tokenExpirationInMs))
-            .signWith(Keys.hmacShaKeyFor(secret.getBytes()))
+            .expiration(new Date(System.currentTimeMillis() + 1000 * tokenExpiration))
+            .signWith(Keys.hmacShaKeyFor("secret".getBytes()))
             .compact();
     }
 }
