@@ -20,7 +20,7 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         var user = userRepository.findUserByEmail(email)
             .orElseThrow(
-                () -> new UsernameNotFoundException("Email not found")
+                () -> new UsernameNotFoundException("User not found")
             );
 
         return new User(
