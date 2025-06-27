@@ -12,6 +12,8 @@ spring:
     show-sql: true
   jwt:
     secret: ${JWT_SECRET}
+    accessTokenExpiration: 300 # 5mAdd commentMore actions
+    refreshTokenExpiration: 604800 # 7d
 stripe:
     apiUrl: https://api.stripe.com
     enabled: true

@@ -1,5 +1,6 @@
 package com.tcb.heb.controllers;
 
+import com.tcb.heb.config.JwtConfig;
 import com.tcb.heb.dto.JwtResponse;
 import com.tcb.heb.dto.LoginRequest;
 import com.tcb.heb.dto.UserDto;
@@ -26,6 +27,7 @@ public class AuthController {
     private final JwtService jwtService;
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final JwtConfig jwtConfig;
 
     @PostMapping("/login")
     public ResponseEntity<JwtResponse> login(
@@ -46,6 +48,7 @@ public class AuthController {
         cookie.setHttpOnly(true);
         cookie.setPath("/auth/refresh");
         cookie.setMaxAge(604800); // 7d
+        cookie.setMaxAge(jwtConfig.getRefreshTokenExpiration());
         cookie.setSecure(true);
         response.addCookie(cookie);
 
