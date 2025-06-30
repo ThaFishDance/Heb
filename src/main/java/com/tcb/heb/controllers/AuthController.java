@@ -33,6 +33,10 @@ public class AuthController {
     public ResponseEntity<JwtResponse> login(
         @Valid @RequestBody LoginRequest request,
         HttpServletResponse response) {
+
+        System.out.println("Trying to login");
+        System.out.println(request);
+
         authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(
                 request.getEmail(),
