@@ -44,15 +44,17 @@ public class SecurityConfig {
 
     @Bean
     public AuthenticationManager authenticationManager(
-            AuthenticationConfiguration config) throws Exception {
+        AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+            .cors(c -> {
+            }) // 👈 enable CORS
             .sessionManagement(c ->
-                    c.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                c.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(c -> c
                 .requestMatchers("/carts/**").permitAll()
@@ -72,4 +74,5 @@ public class SecurityConfig {
 
         return http.build();
     }
+
 }

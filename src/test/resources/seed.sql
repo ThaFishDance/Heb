@@ -6,8 +6,7 @@ VALUES ('Clothing'),
        ('Kitchen'),
        ('Music'),
        ('Outdoor'),
-       ('Pets')
-;
+       ('Pets');
 
 INSERT INTO products (name, category_id, price, description)
 VALUES ('Pet Hair Vacuum Cleaner Attachment', (SELECT id FROM categories WHERE name = 'Pets'), 14.99,
