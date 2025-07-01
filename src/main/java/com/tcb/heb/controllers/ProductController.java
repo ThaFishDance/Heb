@@ -1,12 +1,8 @@
 package com.tcb.heb.controllers;
 
-import com.tcb.heb.dto.CreateCategoryRequest;
-import com.tcb.heb.dto.CreateProductRequest;
-import com.tcb.heb.dto.ProductDto;
-import com.tcb.heb.dto.RegisterUserRequest;
+import com.tcb.heb.dto.*;
 import com.tcb.heb.entities.Category;
 import com.tcb.heb.entities.Product;
-import com.tcb.heb.entities.Role;
 import com.tcb.heb.mappers.CategoryMapper;
 import com.tcb.heb.mappers.ProductMapper;
 import com.tcb.heb.repositories.CategoryRepository;
@@ -16,7 +12,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.Map;
@@ -56,14 +51,14 @@ public class ProductController {
 
     @PostMapping("/createCategory")
     public ResponseEntity<?> createCategory(
-            @Valid @RequestBody CreateCategoryRequest request
+        @Valid @RequestBody CreateCategoryRequest request
     ) {
         System.out.println("Creating category: " + request.getName());
 
         // check if category exists
-        if(categoryRepository.existsByName(request.getName())) {
+        if (categoryRepository.existsByName(request.getName())) {
             return ResponseEntity.badRequest().body(
-                    Map.of("error", "category already exists.")
+                Map.of("error", "category already exists.")
             );
         }
 
@@ -79,4 +74,33 @@ public class ProductController {
         // return 201 with the dto
         return ResponseEntity.status(HttpStatus.CREATED).body(categoryDto);
     }
+
+    @GetMapping("/getAllCategories")
+    public ResponseEntity<List<CategoryDto>> getAllCategories() {
+        System.out.println("Getting all categories");
+        List<Category> categories = categoryRepository.findAll();
+        List<CategoryDto> dtos = categories.stream()
+            .map(categoryMapper::toDto)
+            .toList();
+        return new ResponseEntity<>(dtos, HttpStatus.OK);
+    }
+
+    @PostMapping()
+    public ResponseEntity<?> createProduct(@Valid @RequestBody CreateProductRequest request) {
+        var category = categoryRepository.findById(request.getCategoryId()).orElse(null);
+
+        if (category == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    Map.of("error", "Category not found.")
+            );
+        }
+
+        var product = productMapper.toEntity(request);
+        product.setCategory(category);
+
+        productRepository.save(product);
+        return ResponseEntity.status(HttpStatus.CREATED).body(productMapper.toDto(product));
+    }
+
+
 }
