@@ -12,6 +12,7 @@ import org.mapstruct.Mapping;
 public interface ProductMapper {
     // mapping is for the customization, we map category.id to product.categoryId
     @Mapping(target = "categoryId", source = "category.id")
+    @Mapping(target="categoryName", source ="category.name")
     ProductDto toDto(Product product);
 
     @Mapping(target = "category", ignore = true)
